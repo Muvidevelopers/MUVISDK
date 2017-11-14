@@ -1,0 +1,67 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+android {
+    useLibrary 'org.apache.http.legacy'
+}
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.shamanland:xdroid-toaster:0.0.10'
+    compile 'com.pkmmte.view:circularimageview:1.1'
+    compile 'com.squareup.picasso:picasso:2.5.0'
+    compile 'io.card:android-sdk:5.4.0'
+    compile 'com.daimajia.slider:library:1.1.5@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.devbrackets.android:exomedia:3.0.1'
+    compile 'com.android.support:cardview-v7:23.0+'
+    //compile files('libs/YouTubeAndroidPlayerApi.jar')
+    compile 'com.nineoldandroids:library:2.4.0'
+    /*    compile files('libs/YouTubeAndroidPlayerApi.jar')
+        compile files('libs/wasabi.jar')*/
+    compile 'com.google.android.gms:play-services-cast-framework:9.4.0'
+    compile 'com.googlecode.android-query:android-query:0.25.9'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    compile files('libs/wasabi.jar')
+    compile files('libs/YouTubeAndroidPlayerApi.jar')
+
+    compile('com.spotxchange:spotx-sdk-android:3.1.+') {
+        transitive = false
+    }
+    compile 'com.google.ads.interactivemedia.v3:interactivemedia:3.6.0'
+
+}
+task copyJniLibs(type: Copy) {
+    from 'libs/armeabi'
+    into 'src/main/jniLibs/armeabi'
+}
+tasks.withType(JavaCompile) {
+    compileTask -> compileTask.dependsOn(copyJniLibs)
+}
+clean.dependsOn 'cleanCopyJniLibs'
+
