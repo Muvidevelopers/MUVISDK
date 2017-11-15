@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.release.muvisdk.api.APIUrlConstant;
+import com.release.muvisdk.player.model.DataModel;
 
 import java.util.StringTokenizer;
 import java.util.Timer;
@@ -20,10 +21,10 @@ public class Util {
 
     public static String LANGUAGE_SHARED_PRE = "SdkLanguage";
     public static String DOWNLOAD_INFO_PREF = "download_info_pref";
-/*
-    public static final String loadVideoUrl = APIUrlConstant.VIDEO_DETAILS_URL;
-    public static final String videoLogUrl = APIUrlConstant.VIDEO_LOGS_URL;
-    public static final String bufferLogUrl = "bufferLogs";*/
+    /*
+        public static final String loadVideoUrl = APIUrlConstant.VIDEO_DETAILS_URL;
+        public static final String videoLogUrl = APIUrlConstant.VIDEO_LOGS_URL;
+        public static final String bufferLogUrl = "bufferLogs";*/
     public static final String morlineBB = "getMarlinBBOffline";
     public static final String GetOfflineViewRemainingTime = "GetOfflineViewRemainingTime";
 
@@ -37,6 +38,7 @@ public class Util {
     public static boolean app_is_in_player_context = false;
     public static Timer timer = new Timer();
 
+    public static DataModel dataModel = null;
 
 
    /* public static String rootUrl(){
@@ -48,6 +50,31 @@ public class Util {
 
     }*/
 
+
+
+    public static String IS_ONE_STEP_REGISTRATION = "IS_ONE_STEP_REGISTRATION";
+    public static String DEFAULT_IS_ONE_STEP_REGISTRATION = "0";
+
+    public static String IS_RESTRICT_DEVICE = "IS_RESTRICT_DEVICE";
+    public static String DEFAULT_IS_RESTRICT_DEVICE = "0";
+
+    public static String HAS_FAVORITE = "HAS_FAVORITE";
+    public static String DEFAULT_HAS_FAVORITE = "0";
+
+    public static String IS_OFFLINE = "IS_OFFLINE";
+    public static String DEFAULT_IS_OFFLINE = "0";
+
+    public static String IS_CHROMECAST = "IS_CHROMECAST";
+    public static String DEFAULT_IS_CHROMECAST = "0";
+
+    public static String DEFAULT_ADD_A_REVIEW = "Add a Review";
+    public static String DEFAULT_REVIEWS = "Reviews";
+
+    public static String ADD_A_REVIEW = "ADD_A_REVIEW";
+    public static String REVIEWS = "REVIEWS";
+
+    public static String NO_VIDEO_AVAILABLE = "NO_VIDEO_AVAILABLE";
+    public static String DEFAULT_NO_VIDEO_AVAILABLE = "There's some error. Please try again !";
 
 
 
