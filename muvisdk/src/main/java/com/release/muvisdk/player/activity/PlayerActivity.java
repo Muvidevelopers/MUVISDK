@@ -389,7 +389,7 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
     protected void onResume() {
         super.onResume();
 
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
 
         Util.call_finish_at_onUserLeaveHint = true;
 

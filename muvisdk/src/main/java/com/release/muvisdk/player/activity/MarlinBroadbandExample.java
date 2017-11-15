@@ -271,7 +271,7 @@ public class MarlinBroadbandExample extends AppCompatActivity implements SensorO
     @Override
     protected void onResume() {
         super.onResume();
-        getSupportActionBar().hide();
+
         SensorOrientationChangeNotifier.getInstance(MarlinBroadbandExample.this).addListener(this);
         Util.app_is_in_player_context = true;
 
@@ -410,7 +410,7 @@ public class MarlinBroadbandExample extends AppCompatActivity implements SensorO
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_player);
+        setContentView(R.layout.sdk_activity_video_player);
 
         _init();
         _setData();
