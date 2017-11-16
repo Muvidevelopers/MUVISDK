@@ -83,11 +83,11 @@
         <service
             android:name="com.release.muvisdk.player.service.PopUpService"
             android:enabled="true"
-            android:exported="true"></service>
+            />
         <service
             android:name="com.release.muvisdk.player.service.DataConsumptionService"
             android:enabled="true"
-            android:exported="true"></service>
+           />
 
     </application>
 
