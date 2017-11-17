@@ -92,6 +92,7 @@ import com.intertrust.wasabi.media.PlaylistProxy;
 import com.intertrust.wasabi.media.PlaylistProxyListener;
 import com.release.muvi.muvisdk.R;
 import com.release.muvisdk.api.APIUrlConstant;
+import com.release.muvisdk.api.apiController.SDKInitializer;
 import com.release.muvisdk.player.adapter.DownloadOptionAdapter;
 import com.release.muvisdk.player.controller.WebApiController;
 import com.release.muvisdk.player.model.DownloadContentModel;
@@ -169,8 +170,10 @@ import static com.release.muvisdk.player.utils.Constants.ASYNC_RESUME_VODEOLOG_D
 import static com.release.muvisdk.player.utils.Constants.ASYNC_VODEOLOG_DETAILS;
 import static com.release.muvisdk.player.utils.Constants.CHECK_USER_ID_MSG;
 import static com.release.muvisdk.player.utils.Constants.DOMAIN_NAME_MSG;
+import static com.release.muvisdk.player.utils.Constants.HASH_KEY_MSG;
 import static com.release.muvisdk.player.utils.Constants.LIVE_STREAM;
 import static com.release.muvisdk.player.utils.Constants.OVERLAY_PERMISSION_REQUEST_CODE;
+import static com.release.muvisdk.player.utils.Constants.PACKAGE_NAME_MSG;
 import static com.release.muvisdk.player.utils.Constants.RESUME_VIDEO_REQUEST_CODE;
 import static com.release.muvisdk.player.utils.Constants.SECOND_ADD_REQUEST_CODE;
 import static com.release.muvisdk.player.utils.Constants.SUBTITLE_REQUEST_CODE;
@@ -253,6 +256,7 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
     String Dwonload_Complete_Msg = "";
     String authToken = "";
     String rootUrl = "";
+    String packgeName = "";
 
     boolean censor_layout = true;
     boolean video_completed = false;
@@ -370,6 +374,8 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
     private SubtitleProcessingTask subsFetchTask;
     public TimedTextObject srt;
     private EMVideoView emVideoView;
+
+    Context context;
 
     @Override
     public void getCastCrewDetails(String movieId) {
@@ -552,6 +558,22 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
             finish();
             return;
         }*/
+
+
+        packgeName = getApplicationContext().getPackageName();
+
+        if (!packgeName.equals(SDKInitializer.getUser_Package_Name_At_Api(getApplicationContext()))) {
+            Toast.makeText(PlayerActivity.this, PACKAGE_NAME_MSG, Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        } else {
+            if (SDKInitializer.getHashKey(getApplicationContext()).equals("")) {
+                Toast.makeText(PlayerActivity.this, HASH_KEY_MSG, Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            }
+        }
+
 
         rootUrl = APIUrlConstant.BASE_URl;
 
@@ -927,8 +949,7 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
                     }
 
 
-                } catch (Exception e) {
-                }
+                } catch (Exception e) { }
 
             }
         });

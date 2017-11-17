@@ -86,6 +86,7 @@ public class  ThirdPartyPlayer extends ActionBarActivity {
 
         // getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 //        getSupportActionBar().hide();
+//        playerModel=new Player(ThirdPartyPlayer.this);
         playerModel=new Player();
         playerModel = (Player) getIntent().getSerializableExtra("PlayerModel");
 

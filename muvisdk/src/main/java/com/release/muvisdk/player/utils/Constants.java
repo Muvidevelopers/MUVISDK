@@ -30,5 +30,7 @@ public class Constants {
     public static final String VALID_EMAIL = "Please provide a valid email id.";
     public static final String APP_NAME_MSG = "Please provide your app name.";
     public static final String DOMAIN_NAME_MSG = "Please provide your domain name.";
+    public static final String PACKAGE_NAME_MSG = "Packge Name Not Matched.";
+    public static final String HASH_KEY_MSG = "Hash Key Is Not Available. Please Initialize The SDK.";
 
 }

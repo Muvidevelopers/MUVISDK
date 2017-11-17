@@ -68,6 +68,16 @@ public class Player implements Serializable {
     int adNetworkId = 1;
     String channel_id = "";
     String domainName = "";
+    Context context;
+
+    /*public Player(){}
+    public Player(Context context){
+        this.context = context;
+    }
+
+    public Context getContext(){
+        return context;
+    }*/
 
 
     public ArrayList<String> offline_url = new ArrayList<>();

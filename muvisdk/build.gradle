@@ -37,6 +37,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.0+'
     compile 'com.google.android.gms:play-services-cast-framework:9.4.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.googlecode.android-query:android-query:0.25.9'
     testCompile 'junit:junit:4.12'
     compile files('libs/wasabi.jar')
     compile files('libs/YouTubeAndroidPlayerApi.jar')
