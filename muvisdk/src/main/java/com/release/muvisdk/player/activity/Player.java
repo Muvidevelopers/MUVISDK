@@ -164,13 +164,13 @@ public class Player implements Serializable {
         this.appName = appName;
     }
 
-    public void setDownloadStatus(String downloadStatus) {
+   /* public void setDownloadStatus(String downloadStatus) {
         this.downloadStatus = downloadStatus;
     }
 
     public String getDownloadStatus() {
         return downloadStatus;
-    }
+    }*/
 
     public void setOfflineSubtitleUrl(ArrayList<String> offline_url) {
         this.offline_url = offline_url;
@@ -233,7 +233,7 @@ public class Player implements Serializable {
         this.getDownloadStatus = getDownloadStatus;
     }
 
-    public boolean getGetDownloadStatus() {
+    public boolean getDownloadStatus() {
         return getDownloadStatus;
     }
 

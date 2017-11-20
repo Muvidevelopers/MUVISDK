@@ -698,7 +698,7 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
             }
         }
 
-        if (content_types_id!=LIVE_STREAM && playerModel.getDownloadStatus) {
+        if (content_types_id!=LIVE_STREAM && playerModel.getDownloadStatus()) {
             download_layout.setVisibility(View.VISIBLE);
         }
 
