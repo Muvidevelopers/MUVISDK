@@ -560,7 +560,7 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
         }*/
 
 
-        packgeName = getApplicationContext().getPackageName();
+      /*  packgeName = getApplicationContext().getPackageName();
 
         if (!packgeName.equals(SDKInitializer.getUser_Package_Name_At_Api(getApplicationContext()))) {
             Toast.makeText(PlayerActivity.this, PACKAGE_NAME_MSG, Toast.LENGTH_LONG).show();
@@ -572,7 +572,7 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
                 finish();
                 return;
             }
-        }
+        }*/
 
 
         rootUrl = APIUrlConstant.BASE_URl;
@@ -5162,10 +5162,6 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
 
 
 
-
-
-
-
         Rect rectf = new Rect();
         emVideoView.getLocalVisibleRect(rectf);
         int mainLayout_width = rectf.width() - 50;
@@ -5184,41 +5180,43 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
         while (show) {
 
             Random r = new Random();
-            final int xLeft = r.nextInt(mainLayout_width - 10) + 10;
-
-            final int min = 10;
-            final int max = mainLayout_height;
-            final int yUp = new Random().nextInt((max - min) + 1) + min;
+            try {
+                final int xLeft = r.nextInt(mainLayout_width - 10) + 10;
 
 
-            Log.v(TAG, "==========================================" + "\n");
-
-            Log.v(TAG, "mainLayout_width  ===" + mainLayout_width);
-            Log.v(TAG, "mainLayout_height  ===" + mainLayout_height);
-
-            Log.v(TAG, "childLayout_width  ===" + childLayout_width);
-            Log.v(TAG, "childLayout_height  ===" + childLayout_height);
+                final int min = 10;
+                final int max = mainLayout_height;
+                final int yUp = new Random().nextInt((max - min) + 1) + min;
 
 
-            Log.v(TAG, "xLeft  ===" + xLeft);
-            Log.v(TAG, "yUp  ===" + yUp);
+                Log.v(TAG, "==========================================" + "\n");
 
-            Log.v(TAG, "width addition  ===" + (childLayout_width + xLeft));
-            Log.v(TAG, "height addition   ===" + (childLayout_height + yUp));
+                Log.v(TAG, "mainLayout_width  ===" + mainLayout_width);
+                Log.v(TAG, "mainLayout_height  ===" + mainLayout_height);
 
-            if ((mainLayout_width > (childLayout_width + xLeft)) && (mainLayout_height > (childLayout_height + yUp))) {
-                show = false;
-            }
+                Log.v(TAG, "childLayout_width  ===" + childLayout_width);
+                Log.v(TAG, "childLayout_height  ===" + childLayout_height);
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
 
-                    linearLayout1.setX(xLeft);
-                    linearLayout1.setY(yUp);
+                Log.v(TAG, "xLeft  ===" + xLeft);
+                Log.v(TAG, "yUp  ===" + yUp);
+
+                Log.v(TAG, "width addition  ===" + (childLayout_width + xLeft));
+                Log.v(TAG, "height addition   ===" + (childLayout_height + yUp));
+
+                if ((mainLayout_width > (childLayout_width + xLeft)) && (mainLayout_height > (childLayout_height + yUp))) {
+                    show = false;
                 }
-            });
 
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        linearLayout1.setX(xLeft);
+                        linearLayout1.setY(yUp);
+                    }
+                });
+            }catch (Exception e){}
 
         }
     }

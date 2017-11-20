@@ -25,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
         playerModel.setAppName(getResources().getString(R.string.app_name));
         playerModel.setDomainName("https://www.muvi.com/rest/");
 
+        playerModel.setWaterMark(true);
+        playerModel.useIp(true);
+        playerModel.useDate(true);
+
         Intent intent  = new Intent(MainActivity.this, PlayerActivity.class);
         intent.putExtra("PlayerModel",playerModel);
         startActivity(intent);
