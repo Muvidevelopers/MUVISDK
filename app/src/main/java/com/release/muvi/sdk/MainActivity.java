@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.release.muvisdk.player.activity.Player;
 import com.release.muvisdk.player.activity.PlayerActivity;
+import com.release.muvisdk.player.model.Player;
 
 public class MainActivity extends AppCompatActivity {
 

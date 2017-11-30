@@ -96,6 +96,7 @@ import com.release.muvisdk.api.apiController.SDKInitializer;
 import com.release.muvisdk.player.adapter.DownloadOptionAdapter;
 import com.release.muvisdk.player.controller.WebApiController;
 import com.release.muvisdk.player.model.DownloadContentModel;
+import com.release.muvisdk.player.model.Player;
 import com.release.muvisdk.player.model.SubtitleModel;
 import com.release.muvisdk.player.service.DataConsumptionService;
 import com.release.muvisdk.player.service.PopUpService;
@@ -510,6 +511,10 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
 
         _init();
 
+        try{
+            getSupportActionBar().hide();
+        }catch(Exception e){}
+
         /*
          This code is responsible for change volume and brightness using swipe control .. & Player center buton animation.
           */
@@ -698,7 +703,7 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
             }
         }
 
-        if (content_types_id!=LIVE_STREAM && playerModel.getDownloadStatus) {
+        if (content_types_id!=LIVE_STREAM && playerModel.getDownloadStatus()) {
             download_layout.setVisibility(View.VISIBLE);
         }
 
@@ -2865,29 +2870,38 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
     }
 
     private void hideSystemUI() {
-        story.setText("");
-        // Set the IMMERSIVE flag.
-        // Set the content to appear under the system bars so that the content
-        // doesn't resize when the system bars hide and show.
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+        try{
+            story.setText("");
+            // Set the IMMERSIVE flag.
+            // Set the content to appear under the system bars so that the content
+            // doesn't resize when the system bars hide and show.
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }catch(Exception e){}
+
+
     }
 
     private void showSystemUI() {
-        story.setText(playerModel.getVideoStory());
-        ResizableCustomView.doResizeTextView(PlayerActivity.this, story, MAX_LINES, Util.getTextofLanguage(PlayerActivity.this,Util.VIEW_MORE,Util.DEFAULT_VIEW_MORE), true);
 
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        try{
+            story.setText(playerModel.getVideoStory());
+            ResizableCustomView.doResizeTextView(PlayerActivity.this, story, MAX_LINES, Util.getTextofLanguage(PlayerActivity.this,Util.VIEW_MORE,Util.DEFAULT_VIEW_MORE), true);
 
-        );
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+
+            );
+        }catch(Exception e){}
+
     }
 
 
@@ -3687,7 +3701,6 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
             } catch (Throwable throwable) {
                 throwable.printStackTrace();
             }
-
             return null;
         }
 

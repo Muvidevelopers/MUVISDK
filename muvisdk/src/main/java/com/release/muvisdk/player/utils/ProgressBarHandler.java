@@ -33,11 +33,7 @@ public class ProgressBarHandler {
         //RelativeLayout rl = new RelativeLayout(context);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         bar = (RelativeLayout) inflater.inflate(R.layout.progress_bar_layout, null);
-      //  rl.setGravity(Gravity.CENTER);
-//        rl.addView(mProgressBar);
 
-
-       // hide();
     }
 
     public void show() {

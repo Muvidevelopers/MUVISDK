@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 
 
 import com.release.muvi.muvisdk.R;
+import com.release.muvisdk.player.model.Player;
 import com.spotxchange.v3.SpotX;
 import com.spotxchange.v3.SpotXAd;
 import com.spotxchange.v3.SpotXAdGroup;

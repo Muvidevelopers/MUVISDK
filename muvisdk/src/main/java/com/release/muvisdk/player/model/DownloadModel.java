@@ -12,6 +12,16 @@ public class DownloadModel implements Serializable {
     String authToken = "";
     String domainName = "";
     boolean restriction_status = false;
+    private boolean isstreaming_restricted = false;
+
+
+    public boolean isstreaming_restricted() {
+        return isstreaming_restricted;
+    }
+
+    public void setIsstreaming_restricted(boolean isstreaming_restricted) {
+        this.isstreaming_restricted = isstreaming_restricted;
+    }
 
     public String getDomainName() {
         return domainName;

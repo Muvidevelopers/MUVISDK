@@ -183,4 +183,11 @@ public class Util {
         return true;
     }
 
+    public static int converToInt(String str) {
+        Double d = Double.parseDouble(str);
+        int i = d.intValue();
+        return i;
+    }
+
+
 }

@@ -43,11 +43,13 @@ public class WebApiController extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        String inputKeys[] = keyList.split(",");
-        String inputValues[] = valueList.split(",");
 
-        String urlRouteList = rootUrl.trim() + inputValues[0].trim();
+
         try {
+            String inputKeys[] = keyList.split(",");
+            String inputValues[] = valueList.split(",");
+            String urlRouteList = rootUrl.trim() + inputValues[0].trim();
+
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(urlRouteList);
             httppost.setHeader(HTTP.CONTENT_TYPE, "application/x-www-form-urlencoded;charset=UTF-8");

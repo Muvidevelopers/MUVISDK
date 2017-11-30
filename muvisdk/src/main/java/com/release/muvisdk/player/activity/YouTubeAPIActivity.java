@@ -12,6 +12,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.release.muvi.muvisdk.R;
+import com.release.muvisdk.player.model.Player;
 import com.release.muvisdk.player.utils.SensorOrientationChangeNotifier;
 
 

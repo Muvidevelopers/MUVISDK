@@ -30,6 +30,7 @@ import com.google.ads.interactivemedia.v3.api.ImaSdkFactory;
 import com.google.ads.interactivemedia.v3.api.player.ContentProgressProvider;
 import com.google.ads.interactivemedia.v3.api.player.VideoProgressUpdate;
 import com.release.muvi.muvisdk.R;
+import com.release.muvisdk.player.model.Player;
 
 import java.util.Timer;
 import java.util.TimerTask;

@@ -1,4 +1,4 @@
-package com.release.muvisdk.player.activity;
+package com.release.muvisdk.player.model;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -164,13 +164,13 @@ public class Player implements Serializable {
         this.appName = appName;
     }
 
-    public void setDownloadStatus(String downloadStatus) {
+   /* public void setDownloadStatus(String downloadStatus) {
         this.downloadStatus = downloadStatus;
     }
 
     public String getDownloadStatus() {
         return downloadStatus;
-    }
+    }*/
 
     public void setOfflineSubtitleUrl(ArrayList<String> offline_url) {
         this.offline_url = offline_url;
@@ -227,13 +227,13 @@ public class Player implements Serializable {
 
     //********************** END ***************************//
 
-    boolean getDownloadStatus = false;
+    public boolean getDownloadStatus = false;
 
     public void canDownload(boolean getDownloadStatus) {
         this.getDownloadStatus = getDownloadStatus;
     }
 
-    public boolean getGetDownloadStatus() {
+    public boolean getDownloadStatus() {
         return getDownloadStatus;
     }
 
