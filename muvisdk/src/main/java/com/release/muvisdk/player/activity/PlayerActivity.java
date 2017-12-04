@@ -2417,6 +2417,10 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
 
                     asynWithdrm = new AsynWithdrm();
                     asynWithdrm.executeOnExecutor(threadPoolExecutor);
+
+                    if ((playerModel.getOfflineSubtitleUrl().size() > 0) && (playerModel.getOfflineSubtitleUrl().size() == playerModel.getOfflineSubtitleLanguage().size())) {
+                        Download_SubTitle(playerModel.getOfflineSubtitleUrl().get(0));
+                    }
                 }
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(PlayerActivity.this)) {
@@ -2445,14 +2449,17 @@ public class PlayerActivity extends AppCompatActivity implements SensorOrientati
                         } else {
                             new DownloadFileFromURL().execute(playerModel.getVideoUrl());
                         }
+
+
+                        if ((playerModel.getOfflineSubtitleUrl().size() > 0) && (playerModel.getOfflineSubtitleUrl().size() == playerModel.getOfflineSubtitleLanguage().size())) {
+                            Download_SubTitle(playerModel.getOfflineSubtitleUrl().get(0));
+                        }
+
                     }
                 }
             }
 
 
-            if ((playerModel.getOfflineSubtitleUrl().size() > 0) && (playerModel.getOfflineSubtitleUrl().size() == playerModel.getOfflineSubtitleLanguage().size())) {
-                Download_SubTitle(playerModel.getOfflineSubtitleUrl().get(0));
-            }
         }
 
 

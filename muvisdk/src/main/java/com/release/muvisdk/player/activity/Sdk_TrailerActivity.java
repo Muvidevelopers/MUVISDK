@@ -71,16 +71,13 @@ import static android.content.res.Configuration.SCREENLAYOUT_SIZE_LARGE;
 import static android.content.res.Configuration.SCREENLAYOUT_SIZE_MASK;
 import static android.content.res.Configuration.SCREENLAYOUT_SIZE_XLARGE;
 import static com.release.muvisdk.player.utils.Constants.APP_NAME_MSG;
-import static com.release.muvisdk.player.utils.Constants.CHECK_USER_ID_MSG;
 import static com.release.muvisdk.player.utils.Constants.LIVE_STREAM;
 import static com.release.muvisdk.player.utils.Constants.VALID_AUTHTOKEN;
-import static com.release.muvisdk.player.utils.Constants.VALID_EMAIL;
-import static com.release.muvisdk.player.utils.Util.DEFAULT_NO_INTERNET_CONNECTION;
 import static com.release.muvisdk.player.utils.Util.DEFAULT_VIEW_MORE;
 import static com.release.muvisdk.player.utils.Util.VIEW_MORE;
 
 
-public class TrailerActivity extends AppCompatActivity implements SensorOrientationChangeNotifier.Listener  {
+public class Sdk_TrailerActivity extends AppCompatActivity implements SensorOrientationChangeNotifier.Listener  {
 
 
     String emailIdStr = "";
@@ -171,7 +168,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
     @Override
     protected void onResume() {
         super.onResume();
-        SensorOrientationChangeNotifier.getInstance(TrailerActivity.this).addListener(this);
+        SensorOrientationChangeNotifier.getInstance(Sdk_TrailerActivity.this).addListener(this);
         AsynGetIpAddress asynGetIpAddress = new AsynGetIpAddress();
         asynGetIpAddress.executeOnExecutor(threadPoolExecutor);
     }
@@ -231,7 +228,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
             videoStoryTextView.setTypeface(videoStoryTextViewTypeface);
             Typeface watchTrailerButtonTypeface = Typeface.createFromAsset(getAssets(),getResources().getString(R.string.fonts_regular));
             videoCastCrewTitleTextView.setTypeface(watchTrailerButtonTypeface);
-            videoCastCrewTitleTextView.setText(Util.getTextofLanguage(TrailerActivity.this, Util.CAST_CREW_BUTTON_TITLE, Util.DEFAULT_CAST_CREW_BUTTON_TITLE));
+            videoCastCrewTitleTextView.setText(Util.getTextofLanguage(Sdk_TrailerActivity.this, Util.CAST_CREW_BUTTON_TITLE, Util.DEFAULT_CAST_CREW_BUTTON_TITLE));
 
         }catch (Exception e){}
 
@@ -297,7 +294,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
             if (playerModel != null && playerModel.getAuthToken() != null && !playerModel.getAuthToken().trim().matches("")) {
                 authTokenStr = playerModel.getAuthToken();
             } else {
-                Toast.makeText(TrailerActivity.this, VALID_AUTHTOKEN, Toast.LENGTH_LONG).show();
+                Toast.makeText(Sdk_TrailerActivity.this, VALID_AUTHTOKEN, Toast.LENGTH_LONG).show();
                 finish();
                 return;
             }
@@ -308,14 +305,11 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
 
             if (playerModel != null && playerModel.getEmailId() != null && !playerModel.getEmailId().trim().matches("")) {
                 emailIdStr = playerModel.getEmailId();
-            } else {
-                Toast.makeText(TrailerActivity.this, VALID_EMAIL, Toast.LENGTH_LONG).show();
-                finish();
-                return;
             }
+
             if (playerModel != null && playerModel.getAppName() != null && !playerModel.getAppName().trim().matches("")) {
             } else {
-                Toast.makeText(TrailerActivity.this, APP_NAME_MSG, Toast.LENGTH_LONG).show();
+                Toast.makeText(Sdk_TrailerActivity.this, APP_NAME_MSG, Toast.LENGTH_LONG).show();
                 finish();
                 return;
             }
@@ -393,7 +387,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
             {
                 videoStoryTextView.setText(playerModel.getVideoStory());
                 videoStoryTextView.setVisibility(View.VISIBLE);
-                ResizableCustomView.doResizeTextView(TrailerActivity.this, videoStoryTextView, MAX_LINES, Util.getTextofLanguage(TrailerActivity.this, Util.VIEW_MORE, Util.DEFAULT_VIEW_MORE), true);
+                ResizableCustomView.doResizeTextView(Sdk_TrailerActivity.this, videoStoryTextView, MAX_LINES, Util.getTextofLanguage(Sdk_TrailerActivity.this, Util.VIEW_MORE, Util.DEFAULT_VIEW_MORE), true);
 
             } else {
                 videoStoryTextView.setVisibility(View.GONE);
@@ -412,7 +406,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
         videoCastCrewTitleTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Util.checkNetwork(TrailerActivity.this)) {
+                if (Util.checkNetwork(Sdk_TrailerActivity.this)) {
                     //Will Add Some Data to send
                     Util.call_finish_at_onUserLeaveHint = false;
                     Util.hide_pause = true;
@@ -426,12 +420,12 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
                         mHandler.removeCallbacks(updateTimeTask);
                     }
 
-                    final Intent detailsIntent = new Intent(TrailerActivity.this, CastAndCrewActivity.class);
+                    final Intent detailsIntent = new Intent(Sdk_TrailerActivity.this, CastAndCrewActivity.class);
                     detailsIntent.putExtra("cast_movie_id", movieId.trim());
                     detailsIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(detailsIntent);
                 } else {
-                    Toast.makeText(getApplicationContext(),  Util.getTextofLanguage(TrailerActivity.this, Util.NO_INTERNET_CONNECTION, Util.DEFAULT_NO_INTERNET_CONNECTION), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),  Util.getTextofLanguage(Sdk_TrailerActivity.this, Util.NO_INTERNET_CONNECTION, Util.DEFAULT_NO_INTERNET_CONNECTION), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -443,7 +437,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
 
         LinearLayout.LayoutParams params1 = null;
         if (((getResources().getConfiguration().screenLayout & SCREENLAYOUT_SIZE_MASK) == SCREENLAYOUT_SIZE_LARGE) || ((getResources().getConfiguration().screenLayout & SCREENLAYOUT_SIZE_MASK) == SCREENLAYOUT_SIZE_XLARGE)){
-            if(TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            if(Sdk_TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
             {
                 params1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,(screenHeight*45)/100);
             }
@@ -454,7 +448,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
         }
         else
         {
-            if(TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            if(Sdk_TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
             {
                 params1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,(screenHeight*40)/100);
             }
@@ -588,7 +582,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
 
                     LinearLayout.LayoutParams params1 = null;
                     if (((getResources().getConfiguration().screenLayout & SCREENLAYOUT_SIZE_MASK) == SCREENLAYOUT_SIZE_LARGE) || ((getResources().getConfiguration().screenLayout & SCREENLAYOUT_SIZE_MASK) == SCREENLAYOUT_SIZE_XLARGE)){
-                        if(TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                        if(Sdk_TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
                         {
                             params1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,(screenHeight*45)/100);
                         }
@@ -599,7 +593,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
                     }
                     else
                     {
-                        if(TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                        if(Sdk_TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
                         {
                             params1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,(screenHeight*40)/100);
                         }
@@ -1385,7 +1379,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
 
             LinearLayout.LayoutParams params1 = null;
             if (((getResources().getConfiguration().screenLayout & SCREENLAYOUT_SIZE_MASK) == SCREENLAYOUT_SIZE_LARGE) || ((getResources().getConfiguration().screenLayout & SCREENLAYOUT_SIZE_MASK) == SCREENLAYOUT_SIZE_XLARGE)){
-                if(TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                if(Sdk_TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
                 {
                     params1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,(screenHeight*45)/100);
                 }
@@ -1396,7 +1390,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
             }
             else
             {
-                if(TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                if(Sdk_TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
                 {
                     params1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,(screenHeight*40)/100);
                 }
@@ -1421,7 +1415,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
 
             LinearLayout.LayoutParams params1 = null;
             if (((getResources().getConfiguration().screenLayout & SCREENLAYOUT_SIZE_MASK) == SCREENLAYOUT_SIZE_LARGE) || ((getResources().getConfiguration().screenLayout & SCREENLAYOUT_SIZE_MASK) == SCREENLAYOUT_SIZE_XLARGE)){
-                if(TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                if(Sdk_TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
                 {
                     params1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,(screenHeight*45)/100);
                 }
@@ -1432,7 +1426,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
             }
             else
             {
-                if(TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                if(Sdk_TrailerActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
                 {
                     params1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,(screenHeight*40)/100);
                 }
@@ -1708,7 +1702,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
         if (playerModel.getVideoStory().trim() != null && !playerModel.getVideoStory().trim().matches("")){
             videoStoryTextView.setText(playerModel.getVideoStory());
             videoStoryTextView.setVisibility(View.VISIBLE);
-            ResizableCustomView.doResizeTextView(TrailerActivity.this,videoStoryTextView, MAX_LINES, Util.getTextofLanguage(TrailerActivity.this, VIEW_MORE, DEFAULT_VIEW_MORE), true);
+            ResizableCustomView.doResizeTextView(Sdk_TrailerActivity.this,videoStoryTextView, MAX_LINES, Util.getTextofLanguage(Sdk_TrailerActivity.this, VIEW_MORE, DEFAULT_VIEW_MORE), true);
 
         } else {
             videoStoryTextView.setVisibility(View.GONE);
@@ -1784,7 +1778,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
 
         try {
 
-            SQLiteDatabase DB = TrailerActivity.this.openOrCreateDatabase(DBHelper.DATABASE_NAME, MODE_PRIVATE, null);
+            SQLiteDatabase DB = Sdk_TrailerActivity.this.openOrCreateDatabase(DBHelper.DATABASE_NAME, MODE_PRIVATE, null);
             Cursor cursor = DB.rawQuery("SELECT " + DBHelper.COLUMN_DOWNLOADID + " FROM " + DBHelper.TABLE_NAME + " ", null);
             int count = cursor.getCount();
 
@@ -1793,7 +1787,7 @@ public class TrailerActivity extends AppCompatActivity implements SensorOrientat
             if (count > 0) {
                 if (cursor.moveToFirst()) {
                     do {
-                        DownloadManager downloadManager1 = (DownloadManager) TrailerActivity.this.getSystemService(DOWNLOAD_SERVICE);
+                        DownloadManager downloadManager1 = (DownloadManager) Sdk_TrailerActivity.this.getSystemService(DOWNLOAD_SERVICE);
                         DownloadManager.Query download_id_query = new DownloadManager.Query();
                         download_id_query.setFilterById(Long.parseLong(cursor.getString(0).trim())); //filter by id which you have receieved when reqesting download from download manager
                         Cursor id_cursor = downloadManager1.query(download_id_query);
