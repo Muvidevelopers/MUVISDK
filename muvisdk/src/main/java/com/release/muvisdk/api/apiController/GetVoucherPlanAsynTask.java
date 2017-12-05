@@ -143,16 +143,16 @@ public class GetVoucherPlanAsynTask extends AsyncTask<GetVoucherPlanInputModel, 
                     if(!(myJson.optString("is_show").equals("")) && !(myJson.optString("is_show").equals("null"))
                             && (myJson.optString("is_show").trim().equals("1")))
                     {
-                        getVoucherPlanOutputModel.setIs_show(myJson.optString("1"));
+                        getVoucherPlanOutputModel.setIs_show("1");
                     }
                     else
                     {
-                        getVoucherPlanOutputModel.setIs_show(myJson.optString("0"));
+                        getVoucherPlanOutputModel.setIs_show("0");
                     }
                 }
                 else
                 {
-                    getVoucherPlanOutputModel.setIs_show(myJson.optString("0"));
+                    getVoucherPlanOutputModel.setIs_show("0");
                 }
 
                 // Checking for Season Purchase Type
@@ -162,16 +162,16 @@ public class GetVoucherPlanAsynTask extends AsyncTask<GetVoucherPlanInputModel, 
                     if(!(myJson.optString("is_season").equals("")) && !(myJson.optString("is_season").equals("null"))
                             && (myJson.optString("is_season").trim().equals("1")))
                     {
-                        getVoucherPlanOutputModel.setIs_season(myJson.optString("1"));
+                        getVoucherPlanOutputModel.setIs_season("1");
                     }
                     else
                     {
-                        getVoucherPlanOutputModel.setIs_season(myJson.optString("0"));
+                        getVoucherPlanOutputModel.setIs_season("0");
                     }
                 }
                 else
                 {
-                    getVoucherPlanOutputModel.setIs_season(myJson.optString("0"));
+                    getVoucherPlanOutputModel.setIs_season("0");
                 }
 
                 // Checking for Episode Purchase Type
@@ -181,16 +181,16 @@ public class GetVoucherPlanAsynTask extends AsyncTask<GetVoucherPlanInputModel, 
                     if(!(myJson.optString("is_episode").equals("")) && !(myJson.optString("is_episode").equals("null"))
                             && (myJson.optString("is_episode").trim().equals("1")))
                     {
-                        getVoucherPlanOutputModel.setIs_episode(myJson.optString("1"));
+                        getVoucherPlanOutputModel.setIs_episode("1");
                     }
                     else
                     {
-                        getVoucherPlanOutputModel.setIs_episode(myJson.optString("0"));
+                        getVoucherPlanOutputModel.setIs_episode("0");
                     }
                 }
                 else
                 {
-                    getVoucherPlanOutputModel.setIs_episode(myJson.optString("0"));
+                    getVoucherPlanOutputModel.setIs_episode("0");
                 }
 
             }

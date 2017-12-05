@@ -153,7 +153,7 @@ public class GetIpAddressAsynTask extends AsyncTask<Void, Void, Void> {
         listener.onIPAddressPreExecuteStarted();
         statusCode = 0;
         Log.v("BKS1", "ip value==" + ipAddressStr);
-        Log.v("MUVI","packag name in ip=="+ SDKInitializer.getUser_Package_Name_At_Api(context));
+        Log.v("MUVI","packag name in ip=="+SDKInitializer.getUser_Package_Name_At_Api(context));
         if (!PACKAGE_NAME.equals(SDKInitializer.getUser_Package_Name_At_Api(context))) {
             this.cancel(true);
             message = "Packge Name Not Matched";

@@ -11,22 +11,15 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.release.muvisdk.api.APIUrlConstant;
+import com.release.muvisdk.api.Utils;
 import com.release.muvisdk.api.apiModel.VideoLogsInputModel;
 import com.release.muvisdk.api.apiModel.Video_Log_Output_Model;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by Muvi on 12/16/2016.
@@ -63,8 +56,8 @@ public class GetVideoLogsAsynTask extends AsyncTask<VideoLogsInputModel, Void, V
          * This method to handle post-execution work.
          *
          * @param video_log_output_model A Model Class which contain responses. To get that responses we need to call the respective getter methods.
-         * @param status     Response Code From The Server
-         * @param message    On Success Message
+         * @param status                 Response Code From The Server
+         * @param message                On Success Message
          */
 
         void onGetVideoLogsPostExecuteCompleted(Video_Log_Output_Model video_log_output_model, int status, String message);
@@ -105,78 +98,38 @@ public class GetVideoLogsAsynTask extends AsyncTask<VideoLogsInputModel, Void, V
         try {
 
             // Execute HTTP Post Request
-            try {
-                URL url = new URL(APIUrlConstant.getVideoLogsUrl());
-                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-                conn.setReadTimeout(10000);
-                conn.setConnectTimeout(15000);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
+            URL url = new URL(APIUrlConstant.getVideoLogsUrl());
 
-                Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter(HeaderConstants.AUTH_TOKEN, this.videoLogsInputModel.getAuthToken())
-                        .appendQueryParameter(HeaderConstants.USER_ID, this.videoLogsInputModel.getUserId())
-                        .appendQueryParameter(HeaderConstants.IP_ADDRESS, this.videoLogsInputModel.getIpAddress())
-                        .appendQueryParameter(HeaderConstants.MOVIE_ID, this.videoLogsInputModel.getMuviUniqueId())
-                        .appendQueryParameter(HeaderConstants.EPISODE_ID, this.videoLogsInputModel.getEpisodeStreamUniqueId())
-                        .appendQueryParameter(HeaderConstants.PLAYED_LENGTH, this.videoLogsInputModel.getPlayedLength())
-                        .appendQueryParameter(HeaderConstants.WATCH_STATUS, this.videoLogsInputModel.getWatchStatus())
-                        .appendQueryParameter(HeaderConstants.DEVICE_TYPE, this.videoLogsInputModel.getDeviceType())
-                        .appendQueryParameter(HeaderConstants.LOG_TEMP_ID, this.videoLogsInputModel.getLogTemId())
-                        .appendQueryParameter(HeaderConstants.RESUME_TIME, this.videoLogsInputModel.getResumeTime())
-                        .appendQueryParameter(HeaderConstants.CONTENT_TYPE_ID, this.videoLogsInputModel.getContentTypeId())
-                        .appendQueryParameter(HeaderConstants.LOG_ID, this.videoLogsInputModel.getVideoLogId())
-                        .appendQueryParameter(HeaderConstants.IS_STREAMING_RESTRICTION, this.videoLogsInputModel.getIs_streaming_restriction())
-                        .appendQueryParameter(HeaderConstants.RESTRICT_STREAM_ID, this.videoLogsInputModel.getRestrict_stream_id());
+            Uri.Builder builder = new Uri.Builder()
+                    .appendQueryParameter(HeaderConstants.AUTH_TOKEN, this.videoLogsInputModel.getAuthToken())
+                    .appendQueryParameter(HeaderConstants.USER_ID, this.videoLogsInputModel.getUserId())
+                    .appendQueryParameter(HeaderConstants.IP_ADDRESS, this.videoLogsInputModel.getIpAddress())
+                    .appendQueryParameter(HeaderConstants.MOVIE_ID, this.videoLogsInputModel.getMuviUniqueId())
+                    .appendQueryParameter(HeaderConstants.EPISODE_ID, this.videoLogsInputModel.getEpisodeStreamUniqueId())
+                    .appendQueryParameter(HeaderConstants.PLAYED_LENGTH, this.videoLogsInputModel.getPlayedLength())
+                    .appendQueryParameter(HeaderConstants.WATCH_STATUS, this.videoLogsInputModel.getWatchStatus())
+                    .appendQueryParameter(HeaderConstants.DEVICE_TYPE, this.videoLogsInputModel.getDeviceType())
+                    .appendQueryParameter(HeaderConstants.LOG_TEMP_ID, this.videoLogsInputModel.getLogTemId())
+                    .appendQueryParameter(HeaderConstants.RESUME_TIME, this.videoLogsInputModel.getResumeTime())
+                    .appendQueryParameter(HeaderConstants.CONTENT_TYPE_ID, this.videoLogsInputModel.getContentTypeId())
+                    .appendQueryParameter(HeaderConstants.LOG_ID, this.videoLogsInputModel.getVideoLogId())
+                    .appendQueryParameter(HeaderConstants.IS_STREAMING_RESTRICTION, this.videoLogsInputModel.getIs_streaming_restriction())
+                    .appendQueryParameter(HeaderConstants.RESTRICT_STREAM_ID, this.videoLogsInputModel.getRestrict_stream_id());
 
-                String query = builder.build().getEncodedQuery();
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(query);
-                writer.flush();
-                writer.close();
-                os.close();
-
-                InputStream ins = conn.getInputStream();
-                InputStreamReader isr = new InputStreamReader(ins);
-                BufferedReader in = new BufferedReader(isr);
-
-                String inputLine;
-
-                while ((inputLine = in.readLine()) != null) {
-                    System.out.println(inputLine);
-                    responseStr = inputLine;
-                    Log.v("MUVISDK", "responseStr" + responseStr);
-
-                }
-                in.close();
-
-
-            } catch (org.apache.http.conn.ConnectTimeoutException e) {
-
-                status = 0;
-                message = "Error";
-
-
-            } catch (IOException e) {
-                status = 0;
-                message = "Error";
-            }
-
+            String query = builder.build().getEncodedQuery();
+            responseStr = Utils.handleHttpAndHttpsRequest(url, query, status, message);
+            JSONObject mainJson = null;
             if (responseStr != null) {
-                JSONObject mainJson = new JSONObject(responseStr);
+                mainJson = new JSONObject(responseStr);
                 status = Integer.parseInt(mainJson.optString("code"));
 
                 if (status == 200) {
-                   String log_temp_id = mainJson.optString("log_temp_id");
+                    String log_temp_id = mainJson.optString("log_temp_id");
                     video_log_output_model.setLogTempId(log_temp_id);
                     video_log_output_model.setRestrict_stream_id(mainJson.optString("restrict_stream_id"));
                     video_log_output_model.setVideoLogId(mainJson.optString("log_id"));
 
-                }else {
+                } else {
                     video_log_output_model.setLogTempId("0");
                     video_log_output_model.setRestrict_stream_id("0");
                     video_log_output_model.setVideoLogId("0");

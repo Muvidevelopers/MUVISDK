@@ -366,6 +366,73 @@ public class MenusOutputModel {
         String permalink;
         String url;
 
+        public String getIsSubcategoryPresent() {
+            return isSubcategoryPresent;
+        }
+
+        public void setIsSubcategoryPresent(String isSubcategoryPresent) {
+            this.isSubcategoryPresent = isSubcategoryPresent;
+        }
+
+        String isSubcategoryPresent;
+
+        public String getCategory_id() {
+            return category_id;
+        }
+
+        public void setCategory_id(String category_id) {
+            this.category_id = category_id;
+        }
+
+        String category_id;
+
+
+        public String getLanguage_parent_id() {
+            return language_parent_id;
+        }
+
+        public void setLanguage_parent_id(String language_parent_id) {
+            this.language_parent_id = language_parent_id;
+        }
+
+        String language_parent_id;
+        String language_id;
+        String id_seq;
+        String parent_id;
+
+        public String getLanguage_id() {
+            return language_id;
+        }
+
+        public void setLanguage_id(String language_id) {
+            this.language_id = language_id;
+        }
+
+
+
+
+        public String getId_seq() {
+            return id_seq;
+        }
+
+        public void setId_seq(String id_seq) {
+            this.id_seq = id_seq;
+        }
+
+
+
+
+        public String getParent_id() {
+            return parent_id;
+        }
+
+        public void setParent_id(String parent_id) {
+            this.parent_id = parent_id;
+        }
+
+
+
+
         public boolean isEnable() {
             return isEnable;
         }

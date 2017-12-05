@@ -53,6 +53,10 @@ public class HeaderConstants {
      */
     public static final String EMAIL = "email";
     /**
+     * Constant for Phone Header used in API Call
+     */
+    public static final String MOBILE_NO = "mobile_number";
+    /**
      * Constant for User Id Header used in API Call
      */
     public static final String USER_ID = "user_id";
@@ -343,10 +347,5 @@ public class HeaderConstants {
      */
 
     public static final String RESTRICT_STREAM_ID = "restrict_stream_id";
-
-    /**
-     * Constant for FCM Token Header used in API Call
-     */
-    public static final String FCM_TOKEN = "fcm_token";
 
 }

@@ -11,22 +11,15 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.release.muvisdk.api.APIUrlConstant;
+import com.release.muvisdk.api.Utils;
 import com.release.muvisdk.api.apiModel.ValidateUserInput;
 import com.release.muvisdk.api.apiModel.ValidateUserOutput;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * This Class checks whether the user is validate or not.
@@ -108,97 +101,18 @@ public class GetValidateUserAsynTask extends AsyncTask<ValidateUserInput, Void, 
         try {
 
             // Execute HTTP Post Request
-            try {
-                URL url = new URL(APIUrlConstant.getValidateUserForContentUrl());
-                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-                conn.setReadTimeout(10000);
-                conn.setConnectTimeout(20000);
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Accept", "application/json");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-                Log.v("MUVISDK", "this.validateUserInput.getUserId()" + this.validateUserInput.getUserId());
-                Log.v("MUVISDK", "this.validateUserInput.getUserId()" + this.validateUserInput.getMuviUniqueId());
-                Log.v("MUVISDK", "this.validateUserInput.getUserId()" + this.validateUserInput.getAuthToken());
 
-                Log.v("MUVISDK", "this.validateUserInput.getUserId()" + this.validateUserInput.getEpisodeStreamUniqueId());
-                Log.v("MUVISDK", "this.validateUserInput.getUserId()" + this.validateUserInput.getSeasonId());
-                Log.v("MUVISDK", "this.validateUserInput.getUserId()" + this.validateUserInput.getLanguageCode());
-                Log.v("MUVISDK", "this.validateUserInput.getUserId()" + this.validateUserInput.getPurchaseType());
-
-                Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter(HeaderConstants.AUTH_TOKEN, this.validateUserInput.getAuthToken())
-                        .appendQueryParameter(HeaderConstants.USER_ID, this.validateUserInput.getUserId())
-                        .appendQueryParameter(HeaderConstants.MOVIE_ID, this.validateUserInput.getMuviUniqueId())
-                        .appendQueryParameter(HeaderConstants.EPISODE_ID, this.validateUserInput.getEpisodeStreamUniqueId())
-                        .appendQueryParameter(HeaderConstants.SEASON_ID, this.validateUserInput.getSeasonId())
-                        .appendQueryParameter(HeaderConstants.LANG_CODE, this.validateUserInput.getLanguageCode())
-                        .appendQueryParameter(HeaderConstants.PURCHASE_TYPE, this.validateUserInput.getPurchaseType());
-                String query = builder.build().getEncodedQuery();
-
-                Log.v("MUVISDK", "authToken" + this.validateUserInput.getAuthToken());
-                Log.v("MUVISDK", "user_id" + this.validateUserInput.getUserId());
-                Log.v("MUVISDK", "movie_id" + this.validateUserInput.getMuviUniqueId());
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(query);
-                writer.flush();
-                writer.close();
-                os.close();
-
-
-                int responseCode = conn.getResponseCode();
-                if (responseCode != HttpsURLConnection.HTTP_OK) {
-                    final InputStream err = conn.getErrorStream();
-                    try {
-                    } finally {
-
-                        InputStreamReader isr = new InputStreamReader(err);
-                        BufferedReader in = new BufferedReader(isr);
-
-                        String inputLine;
-
-                        while ((inputLine = in.readLine()) != null) {
-                            System.out.println(inputLine);
-                            responseStr = inputLine;
-                            Log.v("MUVISDK", "responseStr" + responseStr);
-
-                        }
-                        in.close();
-                        err.close();
-                    }
-                } else {
-                    InputStream ins = conn.getInputStream();
-
-                    InputStreamReader isr = new InputStreamReader(ins);
-                    BufferedReader in = new BufferedReader(isr);
-
-                    String inputLine;
-
-                    while ((inputLine = in.readLine()) != null) {
-                        System.out.println(inputLine);
-                        responseStr = inputLine;
-                        Log.v("MUVISDK", "responseStr" + responseStr);
-
-                    }
-                    in.close();
-                }
-
-
-            } catch (org.apache.http.conn.ConnectTimeoutException e) {
-
-                status = 0;
-                message = "Error";
-                Log.v("MUVISDK", "ConnectTimeoutException" + e);
-
-
-            } catch (IOException e) {
-                status = 0;
-                message = "Error";
-                Log.v("MUVISDK", "IOException" + e);
-
-            }
+            URL url = new URL(APIUrlConstant.getValidateUserForContentUrl());
+            Uri.Builder builder = new Uri.Builder()
+                    .appendQueryParameter(HeaderConstants.AUTH_TOKEN, this.validateUserInput.getAuthToken())
+                    .appendQueryParameter(HeaderConstants.USER_ID, this.validateUserInput.getUserId())
+                    .appendQueryParameter(HeaderConstants.MOVIE_ID, this.validateUserInput.getMuviUniqueId())
+                    .appendQueryParameter(HeaderConstants.EPISODE_ID, this.validateUserInput.getEpisodeStreamUniqueId())
+                    .appendQueryParameter(HeaderConstants.SEASON_ID, this.validateUserInput.getSeasonId())
+                    .appendQueryParameter(HeaderConstants.LANG_CODE, this.validateUserInput.getLanguageCode())
+                    .appendQueryParameter(HeaderConstants.PURCHASE_TYPE, this.validateUserInput.getPurchaseType());
+            String query = builder.build().getEncodedQuery();
+            responseStr = Utils.handleHttpAndHttpsRequest(url, query, status, message);
 
             JSONObject mainJson = null;
             if (responseStr != null) {

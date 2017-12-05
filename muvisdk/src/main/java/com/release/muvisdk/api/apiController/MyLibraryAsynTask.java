@@ -153,8 +153,14 @@ public class MyLibraryAsynTask extends AsyncTask<MyLibraryInputModel, Void, Void
                         jsonChildNode = jsonMainNode.getJSONObject(i);
                         MyLibraryOutputModel content = new MyLibraryOutputModel();
 
-                        if ((jsonChildNode.has("genre")) && jsonChildNode.optString("genre").trim() != null && !jsonChildNode.optString("genre").trim().isEmpty() && !jsonChildNode.optString("genre").trim().equals("null") && !jsonChildNode.optString("genre").trim().matches("")) {
-                            content.setGenre(jsonChildNode.optString("genre"));
+                        String mylibrarygenre = "";
+                        if ((jsonChildNode.has("genres")) && jsonChildNode.optString("genres").trim() != null && !jsonChildNode.optString("genres").trim().isEmpty() && !jsonChildNode.optString("genres").trim().equals("null") && !jsonChildNode.optString("genres").trim().matches("")) {
+                            mylibrarygenre = jsonChildNode.optString("genres");
+                            mylibrarygenre = mylibrarygenre.replaceAll("\\[", "");
+                            mylibrarygenre = mylibrarygenre.replaceAll("\\]", "");
+                            mylibrarygenre = mylibrarygenre.replaceAll(",", " , ");
+                            mylibrarygenre = mylibrarygenre.replaceAll("\"", "");
+                            content.setGenre(mylibrarygenre);
 
                         }
                         if ((jsonChildNode.has("name")) && jsonChildNode.optString("name").trim() != null && !jsonChildNode.optString("name").trim().isEmpty() && !jsonChildNode.optString("name").trim().equals("null") && !jsonChildNode.optString("name").trim().matches("")) {

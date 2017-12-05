@@ -9,6 +9,16 @@ package com.release.muvisdk.api.apiModel;
 public class Registration_input {
     String authToken;
     String email;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    String phone;
     String name;
     String password;
     String lang_code;

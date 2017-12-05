@@ -31,7 +31,7 @@ public class AsyncGmailReg extends AsyncTask<GmailLoginInput, Void, Void> {
     private String message;
     private String PACKAGE_NAME;
     private String responseStr;
-    private AsyncGmailReg.AsyncGmailListener listener;
+    private AsyncGmailListener listener;
     private Context context;
 
     /**
@@ -73,7 +73,7 @@ public class AsyncGmailReg extends AsyncTask<GmailLoginInput, Void, Void> {
      * @param context         android.content.Context
      */
 
-    public AsyncGmailReg(GmailLoginInput gmailLoginInput, AsyncGmailReg.AsyncGmailListener listener, Context context) {
+    public AsyncGmailReg(GmailLoginInput gmailLoginInput, AsyncGmailListener listener, Context context) {
         this.listener = listener;
         this.context = context;
 
@@ -109,6 +109,10 @@ public class AsyncGmailReg extends AsyncTask<GmailLoginInput, Void, Void> {
                 HttpResponse response = httpclient.execute(httppost);
                 responseStr = EntityUtils.toString(response.getEntity());
                 Log.v("Nihar", responseStr);
+                Log.v("ANU","NAME==="+this.gmailLoginInput.getName());
+                Log.v("ANU","email==="+this.gmailLoginInput.getEmail());
+                Log.v("ANU","gplus_userid==="+this.gmailLoginInput.getGmail_userid());
+                Log.v("ANU","profile_image==="+this.gmailLoginInput.getProfile_image());
             } catch (org.apache.http.conn.ConnectTimeoutException e) {
                 status = 0;
                 message = "Error";

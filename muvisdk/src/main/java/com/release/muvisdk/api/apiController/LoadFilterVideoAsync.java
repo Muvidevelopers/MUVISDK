@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.release.muvisdk.api.APIUrlConstant;
-import com.release.muvisdk.api.apiModel.ContentListOutput;
 import com.release.muvisdk.api.apiModel.LoadFilterVideoInput;
 import com.release.muvisdk.api.apiModel.LoadFilterVideoOutput;
 
@@ -16,72 +15,38 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * This Class provides users to Load Filtered Video
- *
- * @author MUVI
+ * Created by MUVI on 11/8/2017.
  */
 
-public class LoadFilterVideoAsync extends AsyncTask<LoadFilterVideoInput, Void, Void> {
-
+public class LoadFilterVideoAsync extends AsyncTask<LoadFilterVideoInput,Void,Void>{
     private LoadFilterVideoInput loadFilterVideoInput;
     private String responseStr;
     private int status;
     private int totalItems;
     private String message;
     private String PACKAGE_NAME;
-    private LoadFilterVideoAsync.LoadFilterVideoListner listener;
+    private LoadFilterVideoListner listener;
     private Context context;
     public static ArrayList<String> genreArray;
 
-    /**
-     * Interface used to allow the caller of a LoadFilterVideoAsync to run some code when get
-     * responses.
-     */
 
-
-    public interface LoadFilterVideoListner {
-
-        /**
-         * This method will be invoked before controller start execution.
-         * This method to handle pre-execution work.
-         */
+    public interface LoadFilterVideoListner{
 
         void onLoadFilterVideoPreExecuteStarted();
-
-        /**
-         * This method will be invoked after controller complete execution.
-         * This method to handle post-execution work.
-         *
-         * @param loadFilterVideoOutputArrayList A Model Class which contain responses. To get that responses we need to call the respective getter methods.
-         * @param message              On Success Message
-         * @param status               For Getting the status
-         */
-
         void onLoadFilterVideoPostExecuteCompleted(ArrayList<LoadFilterVideoOutput> loadFilterVideoOutputArrayList, int status, int totalItems, String message);
 
     }
 
     ArrayList<LoadFilterVideoOutput> loadFilterVideoOutput = new ArrayList<LoadFilterVideoOutput>();
 
-    /**
-     * Constructor to initialise the private data members.
-     *
-     * @param loadFilterVideoInput A Model Class which is use for background task, we need to set all the attributes through setter methods of input model class,
-     *                            For Example: to use this API we have to set following attributes:
-     *                            setAuthToken(),setName() etc.
-     * @param listener            LoadFilterVideoListner
-     * @param context             android.content.Context
-     */
 
-
-    public LoadFilterVideoAsync(LoadFilterVideoInput loadFilterVideoInput, LoadFilterVideoAsync.LoadFilterVideoListner listener, Context context) {
+    public LoadFilterVideoAsync(LoadFilterVideoInput loadFilterVideoInput, LoadFilterVideoListner listener, Context context) {
         this.listener = listener;
         this.context = context;
 
@@ -92,14 +57,6 @@ public class LoadFilterVideoAsync extends AsyncTask<LoadFilterVideoInput, Void, 
         Log.v("MUVISDK", "GetContentListAsynTask");
 
     }
-
-    /**
-     * Background thread to execute.
-     *
-     * @return null
-     * @throws org.apache.http.conn.ConnectTimeoutException,IOException,JSONException
-     */
-
     @Override
     protected Void doInBackground(LoadFilterVideoInput... params) {
         String urlRouteList = APIUrlConstant.getGetContentListUrl();

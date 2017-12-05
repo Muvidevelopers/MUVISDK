@@ -63,10 +63,10 @@ public class AddToFavAsync extends AsyncTask<AddToFavInputModel, Void, Void> {
          * @param sucessMsg           On Success Message
          */
 
-        void onAddToFavPostExecuteCompleted(AddToFavOutputModel addToFavOutputModel, int status, String sucessMsg);
+        void onAddToFavPostExecuteCompleted(com.release.muvisdk.api.apiModel.AddToFavOutputModel addToFavOutputModel, int status, String sucessMsg);
     }
 
-    AddToFavOutputModel AddToFavOutputModel = new AddToFavOutputModel();
+    com.release.muvisdk.api.apiModel.AddToFavOutputModel AddToFavOutputModel = new AddToFavOutputModel();
 
     /**
      * Constructor to initialise the private data members.

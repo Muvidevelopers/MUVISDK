@@ -7,7 +7,20 @@ package com.release.muvisdk.api.apiModel;
  */
 public class Update_UserProfile_Output {
 
-    String name, email, nick_name, profile_image;
+    String name;
+    String email;
+    String nick_name;
+    String profile_image;
+
+    public String getPhone_no() {
+        return phone_no;
+    }
+
+    public void setPhone_no(String phone_no) {
+        this.phone_no = phone_no;
+    }
+
+    String phone_no;
 
     /**
      * This Method is use to Set the Name

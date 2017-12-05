@@ -11,6 +11,16 @@ public class Get_UserProfile_Output {
     String id;
     String display_name;
     String email;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    String phone;
     String studio_id;
     String profile_image;
     String isSubscribed;

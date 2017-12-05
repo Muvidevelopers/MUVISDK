@@ -11,20 +11,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.release.muvisdk.api.APIUrlConstant;
+import com.release.muvisdk.api.Utils;
 import com.release.muvisdk.api.apiModel.FFVideoLogDetailsInput;
 
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * This Class is called firstly whenever we play any video.
@@ -40,7 +33,7 @@ public class GetFFVideoLogDetailsAsync extends AsyncTask<FFVideoLogDetailsInput,
     private int code;
     private String PACKAGE_NAME;
     private String videoLogId = "";
-    private String videoLogstreamId="";
+    private String videoLogstreamId = "";
     private GetFFVideoLogsListener listener;
     private Context context;
 
@@ -103,56 +96,19 @@ public class GetFFVideoLogDetailsAsync extends AsyncTask<FFVideoLogDetailsInput,
         try {
 
             // Execute HTTP Post Request
-            try {
-                URL url = new URL(APIUrlConstant.getVideoLogsUrl());
-                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-                conn.setReadTimeout(10000);
-                conn.setConnectTimeout(15000);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter(HeaderConstants.AUTH_TOKEN, this.ffVideoLogDetailsInput.getAuthToken())
-                        .appendQueryParameter(HeaderConstants.USER_ID, this.ffVideoLogDetailsInput.getUser_id())
-                        .appendQueryParameter(HeaderConstants.IP_ADDRESS, this.ffVideoLogDetailsInput.getIp_address())
-                        .appendQueryParameter(HeaderConstants.MOVIE_ID, this.ffVideoLogDetailsInput.getMovie_id())
-                        .appendQueryParameter(HeaderConstants.EPISODE_ID, this.ffVideoLogDetailsInput.getEpisode_id())
-                        .appendQueryParameter(HeaderConstants.PLAYED_LENGTH, this.ffVideoLogDetailsInput.getPlayed_length())
-                        .appendQueryParameter(HeaderConstants.WATCH_STATUS, this.ffVideoLogDetailsInput.getWatch_status())
-                        .appendQueryParameter(HeaderConstants.DEVICE_TYPE, this.ffVideoLogDetailsInput.getDevice_type())
-                        .appendQueryParameter(HeaderConstants.LOG_ID, this.ffVideoLogDetailsInput.getLog_id());
-                String query = builder.build().getEncodedQuery();
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(query);
-                writer.flush();
-                writer.close();
-                os.close();
-
-                InputStream ins = conn.getInputStream();
-                InputStreamReader isr = new InputStreamReader(ins);
-                BufferedReader in = new BufferedReader(isr);
-
-                String inputLine;
-
-                while ((inputLine = in.readLine()) != null) {
-                    System.out.println(inputLine);
-                    responseStr = inputLine;
-                    Log.v("MUVISDK", "responseStr" + responseStr);
-
-                }
-                in.close();
-            } catch (org.apache.http.conn.ConnectTimeoutException e) {
-
-                code = 0;
-
-
-            } catch (IOException e) {
-                code = 0;
-            }
+            URL url = new URL(APIUrlConstant.getVideoLogsUrl());
+            Uri.Builder builder = new Uri.Builder()
+                    .appendQueryParameter(HeaderConstants.AUTH_TOKEN, this.ffVideoLogDetailsInput.getAuthToken())
+                    .appendQueryParameter(HeaderConstants.USER_ID, this.ffVideoLogDetailsInput.getUser_id())
+                    .appendQueryParameter(HeaderConstants.IP_ADDRESS, this.ffVideoLogDetailsInput.getIp_address())
+                    .appendQueryParameter(HeaderConstants.MOVIE_ID, this.ffVideoLogDetailsInput.getMovie_id())
+                    .appendQueryParameter(HeaderConstants.EPISODE_ID, this.ffVideoLogDetailsInput.getEpisode_id())
+                    .appendQueryParameter(HeaderConstants.PLAYED_LENGTH, this.ffVideoLogDetailsInput.getPlayed_length())
+                    .appendQueryParameter(HeaderConstants.WATCH_STATUS, this.ffVideoLogDetailsInput.getWatch_status())
+                    .appendQueryParameter(HeaderConstants.DEVICE_TYPE, this.ffVideoLogDetailsInput.getDevice_type())
+                    .appendQueryParameter(HeaderConstants.LOG_ID, this.ffVideoLogDetailsInput.getLog_id());
+            String query = builder.build().getEncodedQuery();
+            responseStr = Utils.handleHttpAndHttpsRequest(url, query, code, message);
 
             JSONObject mainJson = null;
             if (responseStr != null) {

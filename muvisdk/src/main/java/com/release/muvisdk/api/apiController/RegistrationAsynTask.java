@@ -104,6 +104,7 @@ public class RegistrationAsynTask extends AsyncTask<Registration_input, Void, Vo
             httppost.setHeader(HTTP.CONTENT_TYPE, "application/x-www-form-urlencoded;charset=UTF-8");
             httppost.addHeader(HeaderConstants.AUTH_TOKEN, this.registration_input.getAuthToken());
             httppost.addHeader(HeaderConstants.EMAIL, this.registration_input.getEmail());
+            httppost.addHeader(HeaderConstants.MOBILE_NO, this.registration_input.getPhone());
             httppost.addHeader(HeaderConstants.PASSWORD, this.registration_input.getPassword());
             httppost.addHeader(HeaderConstants.NAME, this.registration_input.getName());
             httppost.addHeader(HeaderConstants.LANG_CODE, this.registration_input.getLang_code());

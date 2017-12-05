@@ -192,7 +192,14 @@ public class TransactionDetailsAsynctask extends AsyncTask<TransactionInputModel
 
                     if ((mainJson.has("amount")) && mainJson.optString("amount").trim() != null && !mainJson.optString("amount").trim().isEmpty() && !mainJson.optString("amount").trim().equals("null") && !mainJson.optString("amount").trim().matches("")) {
                         transactionOutputModel.setAmount(mainJson.optString("amount"));
-
+                        if(transactionOutputModel.getCurrency_symbol().equals("") || transactionOutputModel.getCurrency_symbol()==null || transactionOutputModel.getCurrency_symbol().trim().equals(null))
+                        {
+                            transactionOutputModel.setAmount(transactionOutputModel.getCurrency_code()+""+transactionOutputModel.getAmount());
+                        }
+                        else
+                        {
+                            transactionOutputModel.setAmount(transactionOutputModel.getCurrency_symbol()+""+transactionOutputModel.getAmount());
+                        }
                     } else {
                         transactionOutputModel.setAmount("");
 

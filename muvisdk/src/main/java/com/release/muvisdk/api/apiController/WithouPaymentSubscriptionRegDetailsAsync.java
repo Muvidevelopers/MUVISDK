@@ -8,24 +8,17 @@ package com.release.muvisdk.api.apiController;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.release.muvisdk.api.APIUrlConstant;
+import com.release.muvisdk.api.Utils;
 import com.release.muvisdk.api.apiModel.WithouPaymentSubscriptionRegDetailsInput;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.net.MalformedURLException;
 import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * This Class allow to register user without paying any subscription charges.
@@ -100,75 +93,33 @@ public class WithouPaymentSubscriptionRegDetailsAsync extends AsyncTask<WithouPa
 
         try {
 
-            try {
-                URL url = new URL(APIUrlConstant.getAddSubscriptionUrl());
-                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-                conn.setReadTimeout(10000);
-                conn.setConnectTimeout(15000);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
+            URL url = new URL(APIUrlConstant.getAddSubscriptionUrl());
+            Uri.Builder builder = new Uri.Builder()
+                    .appendQueryParameter(HeaderConstants.AUTH_TOKEN, this.withouPaymentSubscriptionRegDetailsInput.getAuthToken())
+                    .appendQueryParameter(HeaderConstants.IS_ADVANCE, this.withouPaymentSubscriptionRegDetailsInput.getIs_advance())
+                    .appendQueryParameter(HeaderConstants.CARD_NAME, this.withouPaymentSubscriptionRegDetailsInput.getCard_name())
+                    .appendQueryParameter(HeaderConstants.EXP_MONTH, this.withouPaymentSubscriptionRegDetailsInput.getExp_month())
+                    .appendQueryParameter(HeaderConstants.CARD_NUMBER, this.withouPaymentSubscriptionRegDetailsInput.getCard_number())
+                    .appendQueryParameter(HeaderConstants.EXP_YEAR, this.withouPaymentSubscriptionRegDetailsInput.getExp_year())
+                    .appendQueryParameter(HeaderConstants.EMAIL, this.withouPaymentSubscriptionRegDetailsInput.getEmail())
+                    .appendQueryParameter(HeaderConstants.MOVIE_ID, this.withouPaymentSubscriptionRegDetailsInput.getMovie_id())
+                    .appendQueryParameter(HeaderConstants.USER_ID, this.withouPaymentSubscriptionRegDetailsInput.getUser_id())
+                    .appendQueryParameter(HeaderConstants.COUPON_CODE_WITHOUT_PAYMENT, this.withouPaymentSubscriptionRegDetailsInput.getCoupon_code())
+                    .appendQueryParameter(HeaderConstants.CARD_TYPE, this.withouPaymentSubscriptionRegDetailsInput.getCard_type())
+                    .appendQueryParameter(HeaderConstants.CARD_LAST_FOUR_DIGIT, this.withouPaymentSubscriptionRegDetailsInput.getCard_last_fourdigit())
+                    .appendQueryParameter(HeaderConstants.PROFILE_ID, this.withouPaymentSubscriptionRegDetailsInput.getProfile_id())
+                    .appendQueryParameter(HeaderConstants.TOKEN, this.withouPaymentSubscriptionRegDetailsInput.getToken())
+                    .appendQueryParameter(HeaderConstants.CVV, this.withouPaymentSubscriptionRegDetailsInput.getCvv())
+                    .appendQueryParameter(HeaderConstants.COUNTRY, this.withouPaymentSubscriptionRegDetailsInput.getCountry())
+                    .appendQueryParameter(HeaderConstants.SEASON_ID, this.withouPaymentSubscriptionRegDetailsInput.getSeason_id())
+                    .appendQueryParameter(HeaderConstants.EPISODE_ID, this.withouPaymentSubscriptionRegDetailsInput.getEpisode_id())
+                    .appendQueryParameter(HeaderConstants.CURRENCY_ID, this.withouPaymentSubscriptionRegDetailsInput.getCurrency_id())
+                    .appendQueryParameter(HeaderConstants.IS_SAVE_THIS_CARD, this.withouPaymentSubscriptionRegDetailsInput.getIs_save_this_card())
+                    .appendQueryParameter(HeaderConstants.EXISTING_CARD_ID, this.withouPaymentSubscriptionRegDetailsInput.getExisting_card_id());
+            String query = builder.build().getEncodedQuery();
+            responseStr = Utils.handleHttpAndHttpsRequest(url,query,status,message);
 
-                Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter(HeaderConstants.AUTH_TOKEN, this.withouPaymentSubscriptionRegDetailsInput.getAuthToken())
-                        .appendQueryParameter(HeaderConstants.IS_ADVANCE, this.withouPaymentSubscriptionRegDetailsInput.getIs_advance())
-                        .appendQueryParameter(HeaderConstants.CARD_NAME, this.withouPaymentSubscriptionRegDetailsInput.getCard_name())
-                        .appendQueryParameter(HeaderConstants.EXP_MONTH, this.withouPaymentSubscriptionRegDetailsInput.getExp_month())
-                        .appendQueryParameter(HeaderConstants.CARD_NUMBER, this.withouPaymentSubscriptionRegDetailsInput.getCard_number())
-                        .appendQueryParameter(HeaderConstants.EXP_YEAR, this.withouPaymentSubscriptionRegDetailsInput.getExp_year())
-                        .appendQueryParameter(HeaderConstants.EMAIL, this.withouPaymentSubscriptionRegDetailsInput.getEmail())
-                        .appendQueryParameter(HeaderConstants.MOVIE_ID, this.withouPaymentSubscriptionRegDetailsInput.getMovie_id())
-                        .appendQueryParameter(HeaderConstants.USER_ID, this.withouPaymentSubscriptionRegDetailsInput.getUser_id())
-                        .appendQueryParameter(HeaderConstants.COUPON_CODE_WITHOUT_PAYMENT, this.withouPaymentSubscriptionRegDetailsInput.getCoupon_code())
-                        .appendQueryParameter(HeaderConstants.CARD_TYPE, this.withouPaymentSubscriptionRegDetailsInput.getCard_type())
-                        .appendQueryParameter(HeaderConstants.CARD_LAST_FOUR_DIGIT, this.withouPaymentSubscriptionRegDetailsInput.getCard_last_fourdigit())
-                        .appendQueryParameter(HeaderConstants.PROFILE_ID, this.withouPaymentSubscriptionRegDetailsInput.getProfile_id())
-                        .appendQueryParameter(HeaderConstants.TOKEN, this.withouPaymentSubscriptionRegDetailsInput.getToken())
-                        .appendQueryParameter(HeaderConstants.CVV, this.withouPaymentSubscriptionRegDetailsInput.getCvv())
-                        .appendQueryParameter(HeaderConstants.COUNTRY, this.withouPaymentSubscriptionRegDetailsInput.getCountry())
-                        .appendQueryParameter(HeaderConstants.SEASON_ID, this.withouPaymentSubscriptionRegDetailsInput.getSeason_id())
-                        .appendQueryParameter(HeaderConstants.EPISODE_ID, this.withouPaymentSubscriptionRegDetailsInput.getEpisode_id())
-                        .appendQueryParameter(HeaderConstants.CURRENCY_ID, this.withouPaymentSubscriptionRegDetailsInput.getCurrency_id())
-                        .appendQueryParameter(HeaderConstants.IS_SAVE_THIS_CARD, this.withouPaymentSubscriptionRegDetailsInput.getIs_save_this_card())
-                        .appendQueryParameter(HeaderConstants.EXISTING_CARD_ID, this.withouPaymentSubscriptionRegDetailsInput.getExisting_card_id());
-                String query = builder.build().getEncodedQuery();
 
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(query);
-                writer.flush();
-                writer.close();
-                os.close();
-
-                InputStream ins = conn.getInputStream();
-                InputStreamReader isr = new InputStreamReader(ins);
-                BufferedReader in = new BufferedReader(isr);
-
-                String inputLine;
-
-                while ((inputLine = in.readLine()) != null) {
-                    System.out.println(inputLine);
-                    responseStr = inputLine;
-                    Log.v("MUVISDK", "responseStr" + responseStr);
-
-                }
-                in.close();
-
-            }
-            // Execute HTTP Post Request
-            catch (org.apache.http.conn.ConnectTimeoutException e) {
-                Log.v("MUVISDK", "org.apache.http.conn.ConnectTimeoutException e" + e.toString());
-
-                status = 0;
-                message = "";
-
-            } catch (IOException e) {
-                Log.v("MUVISDK", "IOException" + e.toString());
-
-                status = 0;
-                message = "";
-            }
             JSONObject myJson = null;
             if (responseStr != null) {
                 myJson = new JSONObject(responseStr);
@@ -176,6 +127,8 @@ public class WithouPaymentSubscriptionRegDetailsAsync extends AsyncTask<WithouPa
                 return null;
             }
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         return null;

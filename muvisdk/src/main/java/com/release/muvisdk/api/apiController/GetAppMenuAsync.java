@@ -194,22 +194,29 @@ public class GetAppMenuAsync extends AsyncTask<GetMenusInputModel, Void, Void> {
 
                         JSONArray jsonMainMenu = myJson.optJSONArray("menu_items");
                         mainMenuArrayList = new ArrayList<>();
+                        footerMenuArrayList = new ArrayList<>();
+
 
 
                         for (int i = 0; i < jsonMainMenu.length(); i++) {
                             mainMenu = new MenusOutputModel().new MainMenu();
+                            footerMenu = new MenusOutputModel().new FooterMenu();
+                            footerMenu.setEnable(false);
                             mainMenu.setEnable(true);
                             if (jsonMainMenu.getJSONObject(i).has("title")) {
                                 title = jsonMainMenu.getJSONObject(i).optString("title").toString().trim();
                                 mainMenu.setTitle(title);
+                                footerMenu.setDisplay_name(title);
                             }
                             if (jsonMainMenu.getJSONObject(i).has("permalink")) {
                                 Permalink = jsonMainMenu.getJSONObject(i).optString("permalink").toString().trim();
                                 mainMenu.setPermalink(Permalink);
+                                footerMenu.setPermalink(Permalink);
                             }
                             if (jsonMainMenu.getJSONObject(i).has("id")) {
                                 ID = jsonMainMenu.getJSONObject(i).optString("id").toString().trim();
                                 mainMenu.setId(ID);
+                                footerMenu.setId(ID);
                             }
                             if (jsonMainMenu.getJSONObject(i).has("parent_id")) {
                                 ParentId = jsonMainMenu.getJSONObject(i).optString("parent_id").toString().trim();
@@ -218,6 +225,7 @@ public class GetAppMenuAsync extends AsyncTask<GetMenusInputModel, Void, Void> {
                             if (jsonMainMenu.getJSONObject(i).has("link_type")) {
                                 LinkType = jsonMainMenu.getJSONObject(i).optString("link_type").toString().trim();
                                 mainMenu.setLink_type(LinkType);
+                                footerMenu.setLink_type(LinkType);
                             }
                             if (jsonMainMenu.getJSONObject(i).has("value")) {
                                 value = jsonMainMenu.getJSONObject(i).getString("value").toString().trim();
@@ -226,30 +234,44 @@ public class GetAppMenuAsync extends AsyncTask<GetMenusInputModel, Void, Void> {
                             if (jsonMainMenu.getJSONObject(i).has("id_seq")) {
                                 id_seq = jsonMainMenu.getJSONObject(i).getString("id_seq").toString().trim();
                                 mainMenu.setId_seq(id_seq);
+                                footerMenu.setId_seq(id_seq);
                             }
                             if (jsonMainMenu.getJSONObject(i).has("language_id")) {
                                 language_id = jsonMainMenu.getJSONObject(i).getString("language_id").toString().trim();
                                 mainMenu.setLanguage_id(language_id);
+                                footerMenu.setLanguage_id(language_id);
                             }
                             if (jsonMainMenu.getJSONObject(i).has("language_parent_id")) {
                                 language_parent_id = jsonMainMenu.getJSONObject(i).getString("language_parent_id").toString().trim();
                                 mainMenu.setLanguage_parent_id(language_parent_id);
+                                footerMenu.setLanguage_parent_id(language_parent_id);
                             }
                             if (jsonMainMenu.getJSONObject(i).has("category_id")) {
                                 category_id = jsonMainMenu.getJSONObject(i).getString("category_id").toString().trim();
                                 mainMenu.setCategory_id(category_id);
+                                footerMenu.setCategory_id(category_id);
                             }
                             if (jsonMainMenu.getJSONObject(i).has("isSubcategoryPresent")) {
                                 isSubcategoryPresent = jsonMainMenu.getJSONObject(i).getString("isSubcategoryPresent").toString().trim();
                                 mainMenu.setIsSubcategoryPresent(isSubcategoryPresent);
+                                footerMenu.setIsSubcategoryPresent(isSubcategoryPresent);
                             }
-                            mainMenuArrayList.add(mainMenu);
-                            menusOutputModel.setMainMenuModel(mainMenuArrayList);
+                            if (LinkType!=null && !LinkType.equals("")){
+                                if (LinkType.equals("0")){
+                                    mainMenuArrayList.add(mainMenu);
+                                }
+                                else{
+                                    footerMenuArrayList.add(footerMenu);
+                                }
+                            }
+
+
 
 
                             if (jsonMainMenu.getJSONObject(i).has("child")) {
 
                                 try {
+                                    mainMenuChildArrayList= new ArrayList<>();
 
 
                                     JSONArray jsonChildNode = jsonMainMenu.getJSONObject(i).getJSONArray("child");
@@ -301,9 +323,13 @@ public class GetAppMenuAsync extends AsyncTask<GetMenusInputModel, Void, Void> {
 
 
                                 } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
+
                             }
                         }
+                        menusOutputModel.setMainMenuModel(mainMenuArrayList);
+                        menusOutputModel.setFooterMenuModel(footerMenuArrayList);
 
                         JSONArray jsonUserMenu = myJson.optJSONArray("usermenu");
                         userMenuArrayList = new ArrayList<>();
@@ -365,7 +391,7 @@ public class GetAppMenuAsync extends AsyncTask<GetMenusInputModel, Void, Void> {
                         }
 
 
-                        footerMenuArrayList = new ArrayList<>();
+              /*          footerMenuArrayList = new ArrayList<>();
                         JSONArray jsonFooterMenu = myJson.optJSONArray("footer_menu");
 
                         try {
@@ -404,9 +430,10 @@ public class GetAppMenuAsync extends AsyncTask<GetMenusInputModel, Void, Void> {
 
                             menusOutputModel.setFooterMenuModel(footerMenuArrayList);
                         } catch (Exception e) {
-                        }
+                        }*/
 
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e) {
                     }
 
 

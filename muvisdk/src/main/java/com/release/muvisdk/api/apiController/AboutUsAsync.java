@@ -2,7 +2,6 @@
  * SDK initialization, platform and device information classes.
  */
 
-
 package com.release.muvisdk.api.apiController;
 
 import android.content.Context;
@@ -11,7 +10,6 @@ import android.util.Log;
 
 import com.release.muvisdk.api.APIUrlConstant;
 import com.release.muvisdk.api.apiModel.AboutUsInput;
-
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;

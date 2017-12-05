@@ -155,6 +155,7 @@ public class GetEpisodeDeatailsAsynTask extends AsyncTask<Episode_Details_input,
                 item_count = Integer.parseInt(myJson.optString("item_count"));
                 movieUniqueId = myJson.optString("muvi_uniq_id");
                 permalink = myJson.optString("permalink");
+                episode_details_output.setName(myJson.optString("name"));
             }
             Log.v("SUBHA", "episode api controller" + responseStr);
 
@@ -521,7 +522,7 @@ public class GetEpisodeDeatailsAsynTask extends AsyncTask<Episode_Details_input,
                             if (currencyJson.has("symbol") && currencyJson.optString("symbol").trim() != null && !currencyJson.optString("symbol").trim().isEmpty() && !currencyJson.optString("symbol").trim().equals("null") && !currencyJson.optString("symbol").trim().matches("")) {
                                 currencyModel.setCurrencySymbol(currencyJson.optString("symbol"));
                             } else {
-                                currencyModel.setCurrencySymbol("");
+                                currencyModel.setCurrencySymbol("$");
                             }
                             episode_details_output.setCurrencyDetails(currencyModel);
 

@@ -4,8 +4,6 @@ package com.release.muvisdk.api.apiController;
  * Created by MUVI on 10/5/2017.
  * <p>
  * SDK initialization, platform and device information classes.
- * <p>
- * SDK initialization, platform and device information classes.
  */
 
 /**
@@ -183,8 +181,8 @@ public class GetAppHomePageAsync extends AsyncTask<HomePageInputModel, Void, Voi
                 JSONArray jsonMainNode = null;
                 if (myJson.has("SectionName")) {
 
-                    jsonMainNode = myJson.optJSONArray("SectionName");
-                    if (jsonMainNode != null && jsonMainNode.length() > 0) {
+                        jsonMainNode = myJson.optJSONArray("SectionName");
+                    if (jsonMainNode!=null && jsonMainNode.length()>0) {
                         for (int i = 0; i < jsonMainNode.length(); i++) {
 
                             JSONObject jsonChildNode;
@@ -227,13 +225,13 @@ public class GetAppHomePageAsync extends AsyncTask<HomePageInputModel, Void, Voi
                                 e.printStackTrace();
                             }
                         }
-                    } else {
+                    }else {
                         status = 0;
                     }
 
-                    Log.v("MUVISDK", "response123 = " + responseStr);
+                        Log.v("MUVISDK", "response123 = " + responseStr);
 
-                } else {
+                }else {
                     status = 0;
                 }
 
