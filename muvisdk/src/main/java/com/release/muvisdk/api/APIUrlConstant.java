@@ -50,6 +50,12 @@ public class APIUrlConstant {
      * endpoint to get Forgot Password API
      */
     public static String FORGOT_PASSWORD_URL = "forgotPassword";
+
+
+    /**
+     * endpoint to GetAppHomeFeature API
+     */
+    public static String GET_APP_HOME_FEATURE = "GetAppHomeFeature";
     /**
      * endpoint to get Login API
      */
@@ -350,7 +356,9 @@ public class APIUrlConstant {
     public static String getUpdateGoogleid() {
         return BASE_URl + UpdateGoogleid;
     }
-
+    public static String getGetAppHomeFeature() {
+        return BASE_URl + GET_APP_HOME_FEATURE;
+    }
 
     public static String getGetMenusUrl() {
         return BASE_URl + GetMenusUrl;

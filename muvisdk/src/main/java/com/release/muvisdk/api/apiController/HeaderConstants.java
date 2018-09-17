@@ -12,7 +12,14 @@ public class HeaderConstants {
      * Constant for Auth Token Header used in API Call
      */
     public static final String AUTH_TOKEN = "authToken";
+    public static final String FEATURE_SECTION_LIMIT = "feature_sec_limit";
+    public static final String FEATURE_SECTION_OFFSET = "feature_sec_offset";
+    public static final String FEATURE_SECTION_CONTENT_LIMIT = "feature_content_limit";
+    public static final String FEATURE_SECTION_CONTENT_OFFSET = "feature_content_offset";
+    public static final String PLATFORM_TYPE = "platform_type";
+    //   public static final String PLATFORM_TYPE = "platform";
 
+    public static final String STORE_TYPE = "store_type";
 
     /**
      * Constant for VLINK Header used in API Call
