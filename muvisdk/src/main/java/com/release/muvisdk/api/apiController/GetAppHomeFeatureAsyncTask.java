@@ -80,7 +80,7 @@ public class GetAppHomeFeatureAsyncTask extends AsyncTask<AppHomeFeatureInputMod
      * @param listener
      * @param context
      */
-    public GetAppHomeFeatureAsyncTask(AppHomeFeatureInputModel appHomeFeatureInputModel, AppHomeFeature listener, Context context, boolean isCacheEnabled) {
+    public GetAppHomeFeatureAsyncTask(AppHomeFeatureInputModel appHomeFeatureInputModel, AppHomeFeature listener, Context context) {
         this.listener = listener;
         this.context = context;
         this.isCacheEnabled = isCacheEnabled;

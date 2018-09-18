@@ -4,15 +4,26 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.release.muvisdk.api.apiController.GetAppHomeFeatureAsyncTask;
+import com.release.muvisdk.api.apiModel.AppHomeFeatureInputModel;
+import com.release.muvisdk.api.apiModel.AppHomeFeatureOutputModel;
 import com.release.muvisdk.player.activity.PlayerActivity;
 import com.release.muvisdk.player.model.Player;
 
-public class MainActivity extends AppCompatActivity {
+import static com.release.muvisdk.player.utils.Util.DEFAULT_SELECTED_LANGUAGE_CODE;
+import static com.release.muvisdk.player.utils.Util.SELECTED_LANGUAGE_CODE;
+
+public class MainActivity extends AppCompatActivity implements GetAppHomeFeatureAsyncTask.AppHomeFeature{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AppHomeFeatureInputModel appHomeFeatureInputModel = new AppHomeFeatureInputModel();
+
+//        GetAppHomeFeatureAsyncTask getAppHomeFeatureAsyncTask = new GetAppHomeFeatureAsyncTask(appHomeFeatureInputModel, this,MainActivity.this);
+//        getAppHomeFeatureAsyncTask.executeOnExecutor(threadPoolExecutor);
 
 //        Player playerModel = new Player(MainActivity.this);
         Player playerModel = new Player();
@@ -34,4 +45,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void AppHomeFeaturePreExecute() {
+
+    }
+
+    @Override
+    public void AppHomeFeaturePostExecute(AppHomeFeatureOutputModel appHomeFeatureOutputModel, int code) {
+
+    }
 }
